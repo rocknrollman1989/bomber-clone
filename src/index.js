@@ -1,5 +1,3 @@
-import consoleSomething from './script/heroLogic';
+import app from './app';
 
-const addd = document.getElementById('app');
-consoleSomething();
-console.log(addd);
+app();

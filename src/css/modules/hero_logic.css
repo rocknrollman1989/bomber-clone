@@ -1,0 +1,9 @@
+.player_hero {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  height: 30px;
+  width: 30px;
+  background: black;
+  border-radius: 50px;
+}
