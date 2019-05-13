@@ -1,0 +1,8 @@
+
+.heroes_bomb {
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  background: brown;
+  border-radius: 50px;
+}

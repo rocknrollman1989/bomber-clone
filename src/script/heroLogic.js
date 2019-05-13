@@ -1,18 +1,19 @@
 import '../css/modules/hero_logic.css';
 import actions from '../constants/actionConstants';
+import PlayerBomb from './playerBomb';
 
 
 class OurHero {
   constructor(heroName) {
     this.heroName = heroName;
+    this.keyPressed = {};
 
-    const gameWindowToAddPlayer = document.getElementById('game_window');
+    this.gameWindowToAddPlayer = document.getElementById('game_window');
     this.player = document.createElement('div');
     this.player.className = 'player_hero';
     window.addEventListener('keydown', event => this.isAnyKeyPressed(event));
     window.addEventListener('keyup', event => this.isAnyKeyUpped(event));
-    gameWindowToAddPlayer.appendChild(this.player);
-    this.keyPressed = {};
+    this.gameWindowToAddPlayer.appendChild(this.player);
   }
 
   isAnyKeyPressed(event) {
@@ -27,7 +28,7 @@ class OurHero {
     const { keyCode } = event;
     if (keyCode) {
       delete this.keyPressed[keyCode];
-      this.playerGoForAWalk(this.keyPressed);
+      this.playerGoForAWalk(this.keyPresswed = {});
     }
   }
 
@@ -61,6 +62,11 @@ class OurHero {
       return `${this.getPxValue(pxValue) + 1}px`;
     }
     return `${this.getPxValue(pxValue) - 1}px`;
+  }
+
+  createBomb(player) {
+    const { top, left } = player.style;
+    const putTheBomb = new PlayerBomb(top, left);
   }
 }
 

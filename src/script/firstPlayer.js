@@ -24,6 +24,9 @@ class FirstPlayer extends HeroLogic {
         case 87:
           action = actions.ACTION_UP;
           break;
+        case 32:
+          super.createBomb(this.player);
+          break;
         default: break;
       }
       if (action) super.playerGoToSomewhere(this.player, action);
