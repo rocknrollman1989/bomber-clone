@@ -1,14 +1,12 @@
 
 import './css/modules/game_window.css';
-import heroLogick from './script/heroLogic';
+import FirstPlayer from './script/firstPlayer';
 
 const app = () => {
   const myApp = document.getElementById('app');
   const layout = document.createElement('div');
-  layout.className = 'game_window';
+  layout.id = 'game_window';
   myApp.appendChild(layout);
-
-
-  heroLogick();
+  const firstPlayer = new FirstPlayer('vasua');
 };
 export default app;
