@@ -20,16 +20,16 @@ class CreateObstacles {
     obstacle.className = 'obstacle';
     obstacle.style.width = `${obstacleWidth}px`;
     obstacle.style.height = `${obstacleWidth}px`;
-    console.log('item', border);
-    const item = `${generateCoordinates({ coordinates: displayHeight, border, obstacleWidth })}px`;
-    // obstacle.style.top = `${generateCoordinates({ coordinates: displayHeight, border, obstacleWidth })}px`;
-    // obstacle.style.left = `${generateCoordinates({ coordinates: displayWidth, border, obstacleWidth })}px`;
+    obstacle.style.top = `${generateCoordinates(displayHeight, border, obstacleWidth, CreateObstacles.obstaclesCoordinates)}px`;
+    obstacle.style.left = `${generateCoordinates(displayWidth, border, obstacleWidth, CreateObstacles.obstaclesCoordinates)}px`;
+    CreateObstacles.obstaclesCoordinates.push({ top: obstacle.style.top, left: obstacle.style.left });
     obstacle.innerHTML = this.obstacleId;
     document.body.appendChild(obstacle);
   }
 }
 
 CreateObstacles.idCounter = 0;
+CreateObstacles.obstaclesCoordinates = [];
 
 class GameWindow {
   constructor() {
