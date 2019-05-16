@@ -1,6 +1,11 @@
 #game_window {
   background: #fdfbfb;
+  position: relative;
   margin: 0;
-  border: 15px solid #fad2d2;
   box-sizing: border-box;
+}
+
+.obstacle {
+  background: #cb9b9b;
+  position: absolute;
 }

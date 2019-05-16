@@ -16,5 +16,6 @@ module.exports = {
     "html"
   ],
   rules: {
+    "no-new": 0,
   },
 };
