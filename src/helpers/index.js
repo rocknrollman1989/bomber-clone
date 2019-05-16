@@ -1,8 +1,11 @@
-const generateCoordinates = (coordinates, border = 15, obstacleWidth) => {
-  // console.log(obstacleWidth);
+let i = 0;
 
+const generateCoordinates = ({ coordinates, border, obstacleWidth }) => {
   const randomNumber = Math.random().toFixed(3) * 1000;
-  const realCoordinates = coordinates - border * 2 - obstacleWidth / 2;
+  console.log(i, border);
+  debugger;
+  i += 1;
+  const realCoordinates = coordinates - border * 2;
   if (randomNumber > realCoordinates) {
     return generateCoordinates(coordinates);
   }

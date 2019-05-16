@@ -7,6 +7,7 @@ class CreateObstacles {
     this.displayWidth = displayInfo.displayWidth;
     this.border = displayInfo.borderForWindow;
     this.obstacleWidth = 30;
+    this.obstacleId = CreateObstacles.idCounter;
     this.createObstacles();
   }
 
@@ -15,16 +16,20 @@ class CreateObstacles {
       displayHeight, displayWidth, border, obstacleWidth,
     } = this;
     const obstacle = document.createElement('div');
+    CreateObstacles.idCounter += 1;
     obstacle.className = 'obstacle';
     obstacle.style.width = `${obstacleWidth}px`;
     obstacle.style.height = `${obstacleWidth}px`;
-    // console.log(obstacleWidth);
-
-    obstacle.style.top = `${generateCoordinates(displayHeight, border, obstacleWidth)}px`;
-    obstacle.style.left = `${generateCoordinates(displayWidth, border, obstacleWidth)}px`;
+    console.log('item', border);
+    const item = `${generateCoordinates({ coordinates: displayHeight, border, obstacleWidth })}px`;
+    // obstacle.style.top = `${generateCoordinates({ coordinates: displayHeight, border, obstacleWidth })}px`;
+    // obstacle.style.left = `${generateCoordinates({ coordinates: displayWidth, border, obstacleWidth })}px`;
+    obstacle.innerHTML = this.obstacleId;
     document.body.appendChild(obstacle);
   }
 }
+
+CreateObstacles.idCounter = 0;
 
 class GameWindow {
   constructor() {
