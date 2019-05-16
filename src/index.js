@@ -1,3 +1,3 @@
-import app from './app';
+import GameWindow from './script/components/GameWindow';
 
-app();
+const initGameWindow = new GameWindow();
