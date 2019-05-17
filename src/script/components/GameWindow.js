@@ -1,28 +1,27 @@
 import './game_window.css';
-import generateCoordinates from '../../helpers/index';
+import { generateCoordinates, getAmountOfObstacles } from '../../helpers/index';
 
 class CreateObstacles {
   constructor(displayInfo) {
-    this.displayHeight = displayInfo.displayHeight;
-    this.displayWidth = displayInfo.displayWidth;
-    this.border = displayInfo.borderForWindow;
-    this.obstacleWidth = 30;
+    this.realGameFieldWidth = displayInfo.realGameFieldWidth;
+    this.realGameFieldHeight = displayInfo.realGameFieldHeight;
     this.obstacleId = CreateObstacles.idCounter;
     this.createObstacles();
   }
 
   createObstacles() {
     const {
-      displayHeight, displayWidth, border, obstacleWidth,
+      realGameFieldWidth, realGameFieldHeight,
     } = this;
     const obstacle = document.createElement('div');
     CreateObstacles.idCounter += 1;
     obstacle.className = 'obstacle';
-    obstacle.style.width = `${obstacleWidth}px`;
-    obstacle.style.height = `${obstacleWidth}px`;
-    obstacle.style.top = `${generateCoordinates(displayHeight, border, obstacleWidth, CreateObstacles.obstaclesCoordinates)}px`;
-    obstacle.style.left = `${generateCoordinates(displayWidth, border, obstacleWidth, CreateObstacles.obstaclesCoordinates)}px`;
-    CreateObstacles.obstaclesCoordinates.push({ top: obstacle.style.top, left: obstacle.style.left });
+    obstacle.style.width = '30px';
+    obstacle.style.height = '30px';
+    const coordinat = generateCoordinates(realGameFieldWidth, realGameFieldHeight, CreateObstacles.obstaclesCoordinates);
+    CreateObstacles.obstaclesCoordinates.push({ top: coordinat.top, left: coordinat.left });
+    obstacle.style.top = `${coordinat.top}px`;
+    obstacle.style.left = `${coordinat.left}px`;
     obstacle.innerHTML = this.obstacleId;
     document.body.appendChild(obstacle);
   }
@@ -35,20 +34,23 @@ class GameWindow {
   constructor() {
     this.displayHeight = window.innerHeight;
     this.displayWidth = window.innerWidth;
-    this.borderForWindow = 15;
+    const borderForWindow = 15;
     const gameWindow = document.createElement('div');
     gameWindow.id = 'game_window';
     gameWindow.style.width = `${this.displayWidth}px`;
     gameWindow.style.height = `${this.displayHeight}px`;
-    gameWindow.style.border = `${this.borderForWindow}px solid #fad2d2`;
+    gameWindow.style.border = `${borderForWindow}px solid #fad2d2`;
+    this.realGameFieldWidth = this.displayWidth - borderForWindow * 2;
+    this.realGameFieldHeight = this.displayHeight - borderForWindow * 2;
     document.body.appendChild(gameWindow);
     this.createObstaclesForGame();
   }
 
   createObstaclesForGame() {
-    const { displayHeight, displayWidth, borderForWindow } = this;
-    for (let i = 0; i < 30; i += 1) {
-      new CreateObstacles({ displayHeight, displayWidth, borderForWindow });
+    const { realGameFieldWidth, realGameFieldHeight } = this;
+    const amountOfObstacles = getAmountOfObstacles(realGameFieldWidth, realGameFieldHeight);
+    for (let i = 0; i < amountOfObstacles; i += 1) {
+      new CreateObstacles({ realGameFieldWidth, realGameFieldHeight });
     }
   }
 }
