@@ -1,0 +1,48 @@
+import {
+  GAME_BORDER, GAME_SQUARE, GAME_SQUARE_WIDTH, GAME_SQUARE_HEIGHT,
+} from '../../../constants/gameConstants';
+import './hero.css';
+import { actions } from '../../../constants/actionConstants';
+
+class Hero {
+  constructor(heroInfo) {
+    this.name = heroInfo.name;
+    this.heroPerson = document.createElement('div');
+    this.heroPerson.id = 'heroPerson';
+    this.heroPerson.style.width = `${GAME_SQUARE_WIDTH}px`;
+    this.heroPerson.style.height = `${GAME_SQUARE_HEIGHT}px`;
+    this.heroPerson.style.top = `${heroInfo.top}px`;
+    this.heroPerson.style.left = `${heroInfo.left}px`;
+    this.firstPlayerAction = heroInfo.firstPlayerAction;
+    document.addEventListener('keydown', event => this.playersAction(event));
+    document.body.appendChild(this.heroPerson);
+  }
+
+  playersAction(event) {
+    const {
+      KEY_GO_LEFT, KEY_GO_RIGHT, KEY_GO_DOWN, KEY_GO_UP, SET_BOMB,
+    } = this.firstPlayerAction;
+    switch (event.keyCode) {
+      case KEY_GO_LEFT: this.playerIsMoving(actions.ACTION_LEFT, this.heroPerson);
+        break;
+      case KEY_GO_RIGHT: this.playerIsMoving(actions.ACTION_RIGHT, this.heroPerson);
+        break;
+      case KEY_GO_DOWN: this.playerIsMoving(actions.ACTION_DOWN, this.heroPerson);
+        break;
+      case KEY_GO_UP: this.playerIsMoving(actions.ACTION_UP, this.heroPerson);
+        break;
+      case SET_BOMB: this.playerIsMoving(actions.SET_BOMB, this.heroPerson);
+        break;
+      default: break;
+    }
+  }
+}
+
+
+export default Hero;
+
+// KEY_GO_LEFT: 65,
+// KEY_GO_RIGHT: 68,
+// KEY_GO_DOWN: 83,
+// KEY_GO_UP: 87,
+// SET_BOMB: 32,

@@ -1,14 +1,15 @@
 import './game_window.css';
-import { getAmountOfObstacles } from '../../helpers/index';
 import {
   GAME_BORDER, GAME_SQUARE, GAME_SQUARE_WIDTH, GAME_SQUARE_HEIGHT,
-} from '../../constants/gameConstants';
+} from '../../../constants/gameConstants';
 
-class CreateObstacles {
+export class CreateObstacles {
   constructor(displayInfo) {
     this.realGameFieldWidth = displayInfo.realGameFieldWidth;
     this.realGameFieldHeight = displayInfo.realGameFieldHeight;
     this.obstacleId = CreateObstacles.idCounter;
+    this.obstaclesArray = CreateObstacles.obstaclesArray;
+    this.parentDiv = displayInfo.parentDiv;
     this.createObstacles();
   }
 
@@ -32,7 +33,7 @@ class CreateObstacles {
       CreateObstacles.lastLeftPoint = CreateObstacles.lineCounter % 2 ? CreateObstacles.lastLeftPoint = GAME_BORDER : CreateObstacles.lastLeftPoint = GAME_BORDER + GAME_SQUARE_WIDTH;
     }
     obstacle.innerHTML = this.obstacleId;
-    document.body.appendChild(obstacle);
+    this.parentDiv.appendChild(obstacle);
   }
 }
 
@@ -42,7 +43,7 @@ CreateObstacles.lineCounter = 1;
 CreateObstacles.lastTopPoint = GAME_BORDER;
 CreateObstacles.lastLeftPoint = GAME_BORDER + GAME_SQUARE_WIDTH * 2;
 
-class GameWindow {
+export class GameWindow {
   constructor() {
     this.displayHeight = window.innerHeight;
     this.displayWidth = window.innerWidth;
@@ -50,7 +51,6 @@ class GameWindow {
     this.gameSquare = GAME_SQUARE;
     this.gameWindow = document.createElement('div');
     this.createGameWindow();
-    this.createObstaclesForGame();
   }
 
   createGameWindow() {
@@ -70,16 +70,4 @@ class GameWindow {
     this.realGameFieldHeight = neededheigth - this.borderForWindow * 2;
     document.body.appendChild(this.gameWindow);
   }
-
-  createObstaclesForGame() {
-    const {
-      realGameFieldWidth, realGameFieldHeight, gameSquare,
-    } = this;
-    const amountOfObstacles = getAmountOfObstacles(realGameFieldWidth, realGameFieldHeight, gameSquare);
-    for (let i = 0; i < amountOfObstacles; i += 1) {
-      new CreateObstacles({ realGameFieldWidth, realGameFieldHeight });
-    }
-  }
 }
-
-export default GameWindow;
