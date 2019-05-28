@@ -13,30 +13,29 @@ const chekCoordinat = (minCoordinat, maxCoordinat, realCoordinat) => {
 
 const chekLeftObstacles = (obstaclesArray, wayToCome) => {
   const { leftPosition, topPosition } = wayToCome;
-  const filterValue = obstaclesArray.some((element) => {
-    if (leftPosition + 30 < element.left) {
+  const filterValue = obstaclesArray.every((element) => {
+    if (leftPosition + 30 > element.left && ((topPosition >= element.top && topPosition < element.top + 30) || (topPosition + 30 > element.top && topPosition + 30 < element.top + 30))) {
+      console.log(element);
       return false;
     }
-    if (leftPosition + 30 > element.left && (topPosition > element.top && topPosition < element.top + 30)) {
-      console.log('leftPosition:', leftPosition, 'element.left:', element.left);
-      console.log('topPosition:', topPosition, 'element.top:', element.top);
-      return true;
-    }
-    return false;
+    return true;
   });
   return filterValue;
 };
 
 const chekTopObstacles = (obstaclesArray, wayToCome) => {
   const { leftPosition, topPosition } = wayToCome;
-  const filterValue = obstaclesArray.some((element) => {
-    if (topPosition + 30 < element.top) {
+  const filterValue = obstaclesArray.every((element) => {
+    if (topPosition + 30 > element.top && ((leftPosition >= element.left && leftPosition < element.left + 30) || (leftPosition + 30 > element.left && leftPosition + 30 < element.left + 30))) {
+      console.log(element);
+      // console.log(topPosition + 30 > element.top && ((leftPosition >= element.left && leftPosition < element.left + 30) || (leftPosition + 30 > element.left && leftPosition + 30 < element.left + 30)));
+      console.log(topPosition + 30 > element.top);
+      console.log((leftPosition > element.left && leftPosition < element.left + 30));
+      console.log((leftPosition + 30 > element.left && leftPosition + 30 < element.left + 30));
+      console.log(((leftPosition >= element.left && leftPosition < element.left + 30) || (leftPosition + 30 > element.left && leftPosition + 30 < element.left + 30)));
       return false;
     }
-    if (topPosition + 30 > element.top && (leftPosition > element.left || leftPosition + 30 > element.left)) {
-      return true;
-    }
-    return false;
+    return true;
   });
   return filterValue;
 };
@@ -51,11 +50,11 @@ export const chekWayToCome = (gameWindow, obstaclesArray, wayToCome, typeOfActio
   switch (typeOfAction) {
     case 'left':
       if (!chekCoordinat(minWidth, maxWidth, leftPosition)) return;
-      if (chekLeftObstacles(obstaclesArray, wayToCome)) return;
+      if (!chekLeftObstacles(obstaclesArray, wayToCome)) return;
       return `${leftPosition}px`;
     case 'top':
       if (!chekCoordinat(minHeight, maxHeight, topPosition)) return;
-      if (chekTopObstacles(obstaclesArray, wayToCome)) return;
+      if (!chekTopObstacles(obstaclesArray, wayToCome)) return;
       return `${topPosition}px`;
     default: break;
   }
