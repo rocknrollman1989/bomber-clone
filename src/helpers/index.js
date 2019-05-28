@@ -17,7 +17,9 @@ const chekLeftObstacles = (obstaclesArray, wayToCome) => {
     if (leftPosition + 30 < element.left) {
       return false;
     }
-    if (leftPosition + 30 > element.left && (topPosition > element.top || topPosition + 30 > element.top)) {
+    if (leftPosition + 30 > element.left && (topPosition > element.top && topPosition < element.top + 30)) {
+      console.log('leftPosition:', leftPosition, 'element.left:', element.left);
+      console.log('topPosition:', topPosition, 'element.top:', element.top);
       return true;
     }
     return false;
@@ -28,9 +30,9 @@ const chekLeftObstacles = (obstaclesArray, wayToCome) => {
 const chekTopObstacles = (obstaclesArray, wayToCome) => {
   const { leftPosition, topPosition } = wayToCome;
   const filterValue = obstaclesArray.some((element) => {
-    // if (leftPosition + 30 < element.left) {
-    //   return false;
-    // }
+    if (topPosition + 30 < element.top) {
+      return false;
+    }
     if (topPosition + 30 > element.top && (leftPosition > element.left || leftPosition + 30 > element.left)) {
       return true;
     }
@@ -57,4 +59,16 @@ export const chekWayToCome = (gameWindow, obstaclesArray, wayToCome, typeOfActio
       return `${topPosition}px`;
     default: break;
   }
+};
+
+export const checkTargetsToExpload = (bombCoordinates, bombFlameWidth, obstaclesArray) => {
+  const realWidthAtSide = bombFlameWidth / 2;
+  const { left, top } = bombCoordinates;
+  return obstaclesArray.filter((element) => {
+    if (left + realWidthAtSide > element.left && (top > element.top && element.top + 30 > top)) return true;
+    if (top + realWidthAtSide > element.top && (left > element.left && element.left + 30 > left)) return true;
+    if (left - realWidthAtSide > element.left + 30 && (top > element.top && element.top + 30 > top)) return true;
+    if (top - realWidthAtSide > element.top + 30 && (left > element.left && element.left + 30 > left)) return true;
+    return false;
+  });
 };

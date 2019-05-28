@@ -2,7 +2,7 @@ import { GameWindow, CreateObstacles } from './script/components/GameWindow/Game
 import Hero from './script/components/Hero/Hero';
 import Bomb from './script/components/Bomb/Bomb';
 import { firstPlayerAction, actions } from './constants/actionConstants';
-import { chekWayToCome, getAmountOfObstacles } from './helpers';
+import { chekWayToCome, getAmountOfObstacles, checkTargetsToExpload } from './helpers';
 
 class GameProcess {
   constructor() {
@@ -49,17 +49,27 @@ class GameProcess {
         hero.style.top = chekWayToCome(gameWindow, obstaclesArray, { topPosition: topPosition - 1, leftPosition }, 'top');
         break;
       case actions.SET_BOMB:
-        const bomb = new Bomb(hero.style);
-        bomb.bombIsExpload = this.bombIsExpload.bind(this);
+        this.createBomb(hero);
         break;
       default: break;
     }
   }
 
-  bombIsExpload() {
-    console.log(this.createObstacles.obstaclesArray[2]);
-    this.createObstacles.obstaclesArray.splice(2, 1);
-    console.log(this.createObstacles.obstaclesArray[2]);
+  createBomb(hero) {
+    const bomb = new Bomb(hero.style);
+    bomb.bombIsExpload = this.bombIsExpload.bind(this);
+  }
+
+  bombIsExpload(coordinates, flameWidth) {
+    const { obstaclesArray } = this.createObstacles;
+    const targets = checkTargetsToExpload(coordinates, flameWidth, obstaclesArray);
+    if (targets.length) {
+      const bombed = { left: 999999, top: 999999, id: 999999 };
+      targets.forEach((element) => {
+        this.createObstacles.parentDiv.children[element.id].className = 'bombed';
+        this.createObstacles.obstaclesArray[element.id] = bombed;
+      });
+    }
   }
 }
 

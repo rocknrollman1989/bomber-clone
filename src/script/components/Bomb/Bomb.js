@@ -22,7 +22,11 @@ class Bomb {
     verticalFlame.style.width = '60px';
     this.bomb.appendChild(longitudFlame);
     this.bomb.appendChild(verticalFlame);
-    this.bombIsExpload();
+    const coordinats = {
+      left: Number.parseFloat(this.bomb.style.left),
+      top: Number.parseFloat(this.bomb.style.top),
+    };
+    this.bombIsExpload(coordinats, 60);
     setTimeout(() => {
       document.body.removeChild(this.bomb);
     }, 1000);

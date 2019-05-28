@@ -18,7 +18,6 @@ export class CreateObstacles {
       realGameFieldWidth, realGameFieldHeight,
     } = this;
     const obstacle = document.createElement('div');
-    CreateObstacles.idCounter += 1;
     obstacle.className = 'obstacle';
     obstacle.style.width = `${GAME_SQUARE_WIDTH}px`;
     obstacle.style.height = `${GAME_SQUARE_HEIGHT}px`;
@@ -34,6 +33,7 @@ export class CreateObstacles {
     }
     obstacle.innerHTML = this.obstacleId;
     this.parentDiv.appendChild(obstacle);
+    CreateObstacles.idCounter += 1;
   }
 }
 

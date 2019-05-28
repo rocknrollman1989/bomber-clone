@@ -9,3 +9,7 @@
   background: #cb9b9b;
   position: absolute;
 }
+
+.bombed {
+  display: none;
+}
