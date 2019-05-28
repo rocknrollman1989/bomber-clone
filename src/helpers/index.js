@@ -14,8 +14,8 @@ const chekCoordinat = (minCoordinat, maxCoordinat, realCoordinat) => {
 const chekLeftObstacles = (obstaclesArray, wayToCome) => {
   const { leftPosition, topPosition } = wayToCome;
   const filterValue = obstaclesArray.every((element) => {
+    if (leftPosition > element.left + 30) return true;
     if (leftPosition + 30 > element.left && ((topPosition >= element.top && topPosition < element.top + 30) || (topPosition + 30 > element.top && topPosition + 30 < element.top + 30))) {
-      console.log(element);
       return false;
     }
     return true;
@@ -26,13 +26,8 @@ const chekLeftObstacles = (obstaclesArray, wayToCome) => {
 const chekTopObstacles = (obstaclesArray, wayToCome) => {
   const { leftPosition, topPosition } = wayToCome;
   const filterValue = obstaclesArray.every((element) => {
+    if (topPosition > element.top + 30) return true;
     if (topPosition + 30 > element.top && ((leftPosition >= element.left && leftPosition < element.left + 30) || (leftPosition + 30 > element.left && leftPosition + 30 < element.left + 30))) {
-      console.log(element);
-      // console.log(topPosition + 30 > element.top && ((leftPosition >= element.left && leftPosition < element.left + 30) || (leftPosition + 30 > element.left && leftPosition + 30 < element.left + 30)));
-      console.log(topPosition + 30 > element.top);
-      console.log((leftPosition > element.left && leftPosition < element.left + 30));
-      console.log((leftPosition + 30 > element.left && leftPosition + 30 < element.left + 30));
-      console.log(((leftPosition >= element.left && leftPosition < element.left + 30) || (leftPosition + 30 > element.left && leftPosition + 30 < element.left + 30)));
       return false;
     }
     return true;
@@ -64,10 +59,16 @@ export const checkTargetsToExpload = (bombCoordinates, bombFlameWidth, obstacles
   const realWidthAtSide = bombFlameWidth / 2;
   const { left, top } = bombCoordinates;
   return obstaclesArray.filter((element) => {
-    if (left + realWidthAtSide > element.left && (top > element.top && element.top + 30 > top)) return true;
+    // console.log(element);
+    // console.log('top:', top, 'element.top:', element.top, 'element.top + 30: ', element.top + 30);
+    // console.log('left + realWidthAtSide', left + realWidthAtSide, ' element.left:', element.left);
+    if (left + realWidthAtSide > element.left && (top > element.top && element.top + 30 > top)) {
+      // console.log('top:', top, 'element.top:', element.top, 'element.top + 30: ', top);
+      return true;
+    }
     if (top + realWidthAtSide > element.top && (left > element.left && element.left + 30 > left)) return true;
-    if (left - realWidthAtSide > element.left + 30 && (top > element.top && element.top + 30 > top)) return true;
-    if (top - realWidthAtSide > element.top + 30 && (left > element.left && element.left + 30 > left)) return true;
+    // if (left - realWidthAtSide > element.left + 30 && (top > element.top && element.top + 30 > top)) return true;
+    // if (top - realWidthAtSide > element.top + 30 && (left > element.left && element.left + 30 > left)) return true;
     return false;
   });
 };

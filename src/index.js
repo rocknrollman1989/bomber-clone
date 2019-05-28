@@ -37,16 +37,16 @@ class GameProcess {
     const topPosition = Number.parseFloat(hero.style.top);
     switch (action) {
       case actions.ACTION_LEFT:
-        hero.style.left = chekWayToCome(gameWindow, obstaclesArray, { leftPosition: leftPosition - 1, topPosition }, 'left');
+        hero.style.left = chekWayToCome(gameWindow, obstaclesArray, { leftPosition: leftPosition - 2, topPosition }, 'left');
         break;
       case actions.ACTION_RIGHT:
-        hero.style.left = chekWayToCome(gameWindow, obstaclesArray, { leftPosition: leftPosition + 1, topPosition }, 'left');
+        hero.style.left = chekWayToCome(gameWindow, obstaclesArray, { leftPosition: leftPosition + 2, topPosition }, 'left');
         break;
       case actions.ACTION_DOWN:
-        hero.style.top = chekWayToCome(gameWindow, obstaclesArray, { topPosition: topPosition + 1, leftPosition }, 'top');
+        hero.style.top = chekWayToCome(gameWindow, obstaclesArray, { topPosition: topPosition + 2, leftPosition }, 'top');
         break;
       case actions.ACTION_UP:
-        hero.style.top = chekWayToCome(gameWindow, obstaclesArray, { topPosition: topPosition - 1, leftPosition }, 'top');
+        hero.style.top = chekWayToCome(gameWindow, obstaclesArray, { topPosition: topPosition - 2, leftPosition }, 'top');
         break;
       case actions.SET_BOMB:
         this.createBomb(hero);

@@ -5,6 +5,8 @@ import {
 
 class Bomb {
   constructor(heroPosition) {
+    this.flamePositionLeft = `${Number.parseFloat(heroPosition.left) + GAME_SQUARE_HEIGHT / 2}px`;
+    this.flamePositionTop = `${Number.parseFloat(heroPosition.top) + GAME_SQUARE_WIDTH / 2}px`;
     this.bomb = document.createElement('div');
     this.bomb.id = 'bomb';
     this.bomb.style.top = `${Number.parseFloat(heroPosition.top) + GAME_SQUARE_WIDTH / 2 - 10}px`;
@@ -23,8 +25,8 @@ class Bomb {
     this.bomb.appendChild(longitudFlame);
     this.bomb.appendChild(verticalFlame);
     const coordinats = {
-      left: Number.parseFloat(this.bomb.style.left),
-      top: Number.parseFloat(this.bomb.style.top),
+      left: Number.parseFloat(this.flamePositionLeft),
+      top: Number.parseFloat(this.flamePositionTop),
     };
     this.bombIsExpload(coordinats, 60);
     setTimeout(() => {
