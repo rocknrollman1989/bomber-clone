@@ -1,5 +1,5 @@
 import {
-  GAME_BORDER, GAME_SQUARE, GAME_SQUARE_WIDTH, GAME_SQUARE_HEIGHT,
+  GAME_SQUARE_WIDTH, GAME_SQUARE_HEIGHT,
 } from '../../../constants/gameConstants';
 import './hero.css';
 import { actions } from '../../../constants/actionConstants';

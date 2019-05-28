@@ -1,5 +1,6 @@
 import { GameWindow, CreateObstacles } from './script/components/GameWindow/GameWindow';
 import Hero from './script/components/Hero/Hero';
+import Bomb from './script/components/Bomb/Bomb';
 import { firstPlayerAction, actions } from './constants/actionConstants';
 import { chekWayToCome, getAmountOfObstacles } from './helpers';
 
@@ -32,23 +33,33 @@ class GameProcess {
   playerIsMoving(action, hero) {
     const { gameWindow, createObstacles } = this;
     const { obstaclesArray } = createObstacles;
+    const leftPosition = Number.parseFloat(hero.style.left);
+    const topPosition = Number.parseFloat(hero.style.top);
     switch (action) {
       case actions.ACTION_LEFT:
-        hero.style.left = chekWayToCome(gameWindow, obstaclesArray, Number.parseFloat(hero.style.left) - 1, 'left');
+        hero.style.left = chekWayToCome(gameWindow, obstaclesArray, { leftPosition: leftPosition - 1, topPosition }, 'left');
         break;
       case actions.ACTION_RIGHT:
-        hero.style.left = chekWayToCome(gameWindow, obstaclesArray, Number.parseFloat(hero.style.left) + 1, 'left');
+        hero.style.left = chekWayToCome(gameWindow, obstaclesArray, { leftPosition: leftPosition + 1, topPosition }, 'left');
         break;
       case actions.ACTION_DOWN:
-        hero.style.top = chekWayToCome(gameWindow, obstaclesArray, Number.parseFloat(hero.style.top) + 1, 'top');
+        hero.style.top = chekWayToCome(gameWindow, obstaclesArray, { topPosition: topPosition + 1, leftPosition }, 'top');
         break;
       case actions.ACTION_UP:
-        hero.style.top = chekWayToCome(gameWindow, obstaclesArray, Number.parseFloat(hero.style.top) - 1, 'top');
+        hero.style.top = chekWayToCome(gameWindow, obstaclesArray, { topPosition: topPosition - 1, leftPosition }, 'top');
         break;
       case actions.SET_BOMB:
+        const bomb = new Bomb(hero.style);
+        bomb.bombIsExpload = this.bombIsExpload.bind(this);
         break;
       default: break;
     }
+  }
+
+  bombIsExpload() {
+    console.log(this.createObstacles.obstaclesArray[2]);
+    this.createObstacles.obstaclesArray.splice(2, 1);
+    console.log(this.createObstacles.obstaclesArray[2]);
   }
 }
 

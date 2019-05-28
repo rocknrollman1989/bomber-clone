@@ -11,27 +11,50 @@ const chekCoordinat = (minCoordinat, maxCoordinat, realCoordinat) => {
   return true;
 };
 
-const chekObstacles = (obstaclesArray, wayToCome, wayToMove) => {
-  console.log(obstaclesArray, wayToCome, wayToMove);
-  return true;
+const chekLeftObstacles = (obstaclesArray, wayToCome) => {
+  const { leftPosition, topPosition } = wayToCome;
+  const filterValue = obstaclesArray.some((element) => {
+    if (leftPosition + 30 < element.left) {
+      return false;
+    }
+    if (leftPosition + 30 > element.left && (topPosition > element.top || topPosition + 30 > element.top)) {
+      return true;
+    }
+    return false;
+  });
+  return filterValue;
+};
+
+const chekTopObstacles = (obstaclesArray, wayToCome) => {
+  const { leftPosition, topPosition } = wayToCome;
+  const filterValue = obstaclesArray.some((element) => {
+    // if (leftPosition + 30 < element.left) {
+    //   return false;
+    // }
+    if (topPosition + 30 > element.top && (leftPosition > element.left || leftPosition + 30 > element.left)) {
+      return true;
+    }
+    return false;
+  });
+  return filterValue;
 };
 
 export const chekWayToCome = (gameWindow, obstaclesArray, wayToCome, typeOfAction) => {
   const { borderForWindow, realGameFieldWidth, realGameFieldHeight } = gameWindow;
+  const { leftPosition, topPosition } = wayToCome;
   const minHeight = borderForWindow;
   const maxHeight = realGameFieldHeight - borderForWindow;
   const minWidth = borderForWindow;
   const maxWidth = realGameFieldWidth - borderForWindow;
-  console.log(wayToCome);
   switch (typeOfAction) {
     case 'left':
-      if (!chekCoordinat(minWidth, maxWidth, wayToCome)) return;
-      if (!chekObstacles(obstaclesArray, wayToCome, 'left')) return;
-      return `${wayToCome}px`;
+      if (!chekCoordinat(minWidth, maxWidth, leftPosition)) return;
+      if (chekLeftObstacles(obstaclesArray, wayToCome)) return;
+      return `${leftPosition}px`;
     case 'top':
-      if (!chekCoordinat(minHeight, maxHeight, wayToCome)) return;
-      return `${wayToCome}px`;
-      break;
+      if (!chekCoordinat(minHeight, maxHeight, topPosition)) return;
+      if (chekTopObstacles(obstaclesArray, wayToCome)) return;
+      return `${topPosition}px`;
     default: break;
   }
 };

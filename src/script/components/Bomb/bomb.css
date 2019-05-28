@@ -1,0 +1,19 @@
+#bomb {
+  border-radius: 50px;
+  height: 20px;
+  width: 20px;
+  background-color: black;
+  position: absolute;
+}
+
+.flame {
+  height: 5px;
+  background-color: red;
+  position: inherit;
+  left: -20px;
+  top: 7.5px;
+}
+
+.verticalFlame {
+  transform: rotate(90deg)
+}
