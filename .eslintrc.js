@@ -18,5 +18,6 @@ module.exports = {
   rules: {
     "no-new": 0,
     "max-len": 0,
+    "consistent-return": 0
   },
 };

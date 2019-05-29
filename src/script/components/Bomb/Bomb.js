@@ -31,7 +31,7 @@ class Bomb {
     this.bombIsExpload(coordinats, 60);
     setTimeout(() => {
       document.body.removeChild(this.bomb);
-    }, 1000);
+    }, 500);
   }
 }
 

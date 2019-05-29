@@ -1,8 +1,12 @@
 import { GameWindow, CreateObstacles } from './script/components/GameWindow/GameWindow';
 import Hero from './script/components/Hero/Hero';
 import Bomb from './script/components/Bomb/Bomb';
-import { firstPlayerAction, secondPlayerAction, actions } from './constants/actionConstants';
-import { chekWayToCome, getAmountOfObstacles, checkTargetsToExpload } from './helpers';
+import {
+  firstPlayerAction, secondPlayerAction, actions,
+} from './constants/actionConstants';
+import {
+  chekWayToCome, getAmountOfObstacles, checkTargetsToExpload, checkHeroToExpload,
+} from './helpers';
 
 class GameProcess {
   constructor() {
@@ -41,16 +45,20 @@ class GameProcess {
     const topPosition = Number.parseFloat(hero.style.top);
     switch (action) {
       case actions.ACTION_LEFT:
-        hero.style.left = chekWayToCome(gameWindow, obstaclesArray, { leftPosition: leftPosition - 2, topPosition }, 'left');
+        // eslint-disable-next-line no-param-reassign
+        hero.style.left = chekWayToCome(gameWindow, obstaclesArray, { leftPosition: leftPosition - 1, topPosition }, 'left');
         break;
       case actions.ACTION_RIGHT:
-        hero.style.left = chekWayToCome(gameWindow, obstaclesArray, { leftPosition: leftPosition + 2, topPosition }, 'left');
+        // eslint-disable-next-line no-param-reassign
+        hero.style.left = chekWayToCome(gameWindow, obstaclesArray, { leftPosition: leftPosition + 1, topPosition }, 'left');
         break;
       case actions.ACTION_DOWN:
-        hero.style.top = chekWayToCome(gameWindow, obstaclesArray, { topPosition: topPosition + 2, leftPosition }, 'top');
+        // eslint-disable-next-line no-param-reassign
+        hero.style.top = chekWayToCome(gameWindow, obstaclesArray, { topPosition: topPosition + 1, leftPosition }, 'top');
         break;
       case actions.ACTION_UP:
-        hero.style.top = chekWayToCome(gameWindow, obstaclesArray, { topPosition: topPosition - 2, leftPosition }, 'top');
+        // eslint-disable-next-line no-param-reassign
+        hero.style.top = chekWayToCome(gameWindow, obstaclesArray, { topPosition: topPosition - 1, leftPosition }, 'top');
         break;
       case actions.SET_BOMB:
         this.createBomb(hero);
@@ -66,7 +74,13 @@ class GameProcess {
 
   bombIsExpload(coordinates, flameWidth) {
     const { obstaclesArray } = this.createObstacles;
+    const { secondPlayer, firstPlayer } = this;
+    // console.log('left', firstPlayer.heroPerson.style.left);
+    // console.log('top', firstPlayer.heroPerson.style.top);
+    const heroOneTarget = checkHeroToExpload(coordinates, flameWidth, firstPlayer);
+    const heroTwoTarget = checkHeroToExpload(coordinates, flameWidth, secondPlayer);
     const targets = checkTargetsToExpload(coordinates, flameWidth, obstaclesArray);
+    // console.log(heroOneTarget);
     if (targets.length) {
       const bombed = { left: 999999, top: 999999, id: 999999 };
       targets.forEach((element) => {
