@@ -31,7 +31,6 @@ export class CreateObstacles {
       CreateObstacles.lastTopPoint += GAME_SQUARE_HEIGHT;
       CreateObstacles.lastLeftPoint = CreateObstacles.lineCounter % 2 ? CreateObstacles.lastLeftPoint = GAME_BORDER : CreateObstacles.lastLeftPoint = GAME_BORDER + GAME_SQUARE_WIDTH;
     }
-    obstacle.innerHTML = this.obstacleId;
     this.parentDiv.appendChild(obstacle);
     CreateObstacles.idCounter += 1;
   }
@@ -65,7 +64,6 @@ export class GameWindow {
     }
     this.gameWindow.style.width = `${neededWidth}px`;
     this.gameWindow.style.height = `${neededheigth}px`;
-    this.gameWindow.style.border = `${this.borderForWindow}px solid #fad2d2`;
     this.realGameFieldWidth = neededWidth - this.borderForWindow * 2;
     this.realGameFieldHeight = neededheigth - this.borderForWindow * 2;
     document.body.appendChild(this.gameWindow);

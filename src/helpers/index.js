@@ -59,16 +59,10 @@ export const checkTargetsToExpload = (bombCoordinates, bombFlameWidth, obstacles
   const realWidthAtSide = bombFlameWidth / 2;
   const { left, top } = bombCoordinates;
   return obstaclesArray.filter((element) => {
-    // console.log(element);
-    // console.log('top:', top, 'element.top:', element.top, 'element.top + 30: ', element.top + 30);
-    // console.log('left + realWidthAtSide', left + realWidthAtSide, ' element.left:', element.left);
-    if (left + realWidthAtSide > element.left && (top > element.top && element.top + 30 > top)) {
-      // console.log('top:', top, 'element.top:', element.top, 'element.top + 30: ', top);
-      return true;
-    }
-    if (top + realWidthAtSide > element.top && (left > element.left && element.left + 30 > left)) return true;
-    // if (left - realWidthAtSide > element.left + 30 && (top > element.top && element.top + 30 > top)) return true;
-    // if (top - realWidthAtSide > element.top + 30 && (left > element.left && element.left + 30 > left)) return true;
+    if ((left + realWidthAtSide > element.left && left + realWidthAtSide < element.left + 30) && (top > element.top && element.top + 30 > top)) return true;
+    if ((top + realWidthAtSide > element.top && top + realWidthAtSide < element.top + 30) && (left > element.left && element.left + 30 > left)) return true;
+    if ((left - realWidthAtSide < element.left + 30 && left - realWidthAtSide > element.left) && (top > element.top && element.top + 30 > top)) return true;
+    if ((top - realWidthAtSide < element.top + 30 && top - realWidthAtSide > element.top) && (left > element.left && element.left + 30 > left)) return true;
     return false;
   });
 };

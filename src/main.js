@@ -1,7 +1,7 @@
 import { GameWindow, CreateObstacles } from './script/components/GameWindow/GameWindow';
 import Hero from './script/components/Hero/Hero';
 import Bomb from './script/components/Bomb/Bomb';
-import { firstPlayerAction, actions } from './constants/actionConstants';
+import { firstPlayerAction, secondPlayerAction, actions } from './constants/actionConstants';
 import { chekWayToCome, getAmountOfObstacles, checkTargetsToExpload } from './helpers';
 
 class GameProcess {
@@ -12,7 +12,11 @@ class GameProcess {
     this.firstPlayer = new Hero({
       top: 15, left: 15, name: 'Вася', firstPlayerAction,
     });
+    this.secondPlayer = new Hero({
+      top: this.gameWindow.realGameFieldHeight - 15, left: this.gameWindow.realGameFieldWidth - 15, name: 'Gans', secondPlayerAction,
+    });
     this.firstPlayer.playerIsMoving = this.playerIsMoving.bind(this);
+    this.secondPlayer.playerIsMoving = this.playerIsMoving.bind(this);
   }
 
   createObstaclesForGame() {
@@ -24,7 +28,7 @@ class GameProcess {
     } = this.gameWindow;
     const amountOfObstacles = getAmountOfObstacles(realGameFieldWidth, realGameFieldHeight, gameSquare);
     let createObstacles;
-    for (let i = 0; i < amountOfObstacles; i += 1) {
+    for (let i = 0; i < amountOfObstacles - 2; i += 1) {
       createObstacles = new CreateObstacles({ realGameFieldWidth, realGameFieldHeight, parentDiv });
     }
     this.createObstacles = createObstacles;

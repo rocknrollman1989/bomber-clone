@@ -1,13 +1,18 @@
 #game_window {
-  background: #fdfbfb;
   position: relative;
   margin: 0;
   box-sizing: border-box;
+  border: 15px solid transparent;
+  border-image: url('../../../static/wall_for_border.jpg') 30 round;
+  border-image-width: 15px;
+  background: #fdfbfb;
 }
 
 .obstacle {
-  background: #cb9b9b;
+  background: transparent;
   position: absolute;
+  background-image: url('../../../static/wall_for_obstacles.jpg');
+  background-size: cover;
 }
 
 .bombed {

@@ -14,6 +14,7 @@ class Hero {
     this.heroPerson.style.top = `${heroInfo.top}px`;
     this.heroPerson.style.left = `${heroInfo.left}px`;
     this.firstPlayerAction = heroInfo.firstPlayerAction;
+    if (heroInfo.secondPlayerAction) this.secondPlayerAction = heroInfo.secondPlayerAction;
     document.addEventListener('keydown', event => this.playersAction(event));
     document.body.appendChild(this.heroPerson);
   }
@@ -21,7 +22,7 @@ class Hero {
   playersAction(event) {
     const {
       KEY_GO_LEFT, KEY_GO_RIGHT, KEY_GO_DOWN, KEY_GO_UP, SET_BOMB,
-    } = this.firstPlayerAction;
+    } = this.firstPlayerAction || this.secondPlayerAction;
     switch (event.keyCode) {
       case KEY_GO_LEFT: this.playerIsMoving(actions.ACTION_LEFT, this.heroPerson);
         break;
@@ -40,9 +41,3 @@ class Hero {
 
 
 export default Hero;
-
-// KEY_GO_LEFT: 65,
-// KEY_GO_RIGHT: 68,
-// KEY_GO_DOWN: 83,
-// KEY_GO_UP: 87,
-// SET_BOMB: 32,
