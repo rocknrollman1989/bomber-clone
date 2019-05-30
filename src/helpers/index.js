@@ -72,8 +72,6 @@ export const checkHeroToExpload = (bombCoordinates, bombFlameWidth, player) => {
   const { style } = player.heroPerson;
   const { top, left } = bombCoordinates;
   const realWidthAtSide = bombFlameWidth / 2;
-  console.log('bombCoordinates', left, top);
-  console.log(style.left);
   if ((left + realWidthAtSide > style.left && left + realWidthAtSide < style.left + 30) && (top > style.top && style.top + 30 > top)) return true;
   if ((top + realWidthAtSide > style.top && top + realWidthAtSide < style.top + 30) && (left > style.left && style.left + 30 > left)) return true;
   if ((left - realWidthAtSide < style.left + 30 && left - realWidthAtSide > style.left) && (top > style.top && style.top + 30 > top)) return true;

@@ -74,11 +74,11 @@ class GameProcess {
 
   bombIsExpload(coordinates, flameWidth) {
     const { obstaclesArray } = this.createObstacles;
-    const { secondPlayer, firstPlayer } = this;
+    // const { secondPlayer, firstPlayer } = this;
     // console.log('left', firstPlayer.heroPerson.style.left);
     // console.log('top', firstPlayer.heroPerson.style.top);
-    const heroOneTarget = checkHeroToExpload(coordinates, flameWidth, firstPlayer);
-    const heroTwoTarget = checkHeroToExpload(coordinates, flameWidth, secondPlayer);
+    // const heroOneTarget = checkHeroToExpload(coordinates, flameWidth, firstPlayer);
+    // const heroTwoTarget = checkHeroToExpload(coordinates, flameWidth, secondPlayer);
     const targets = checkTargetsToExpload(coordinates, flameWidth, obstaclesArray);
     // console.log(heroOneTarget);
     if (targets.length) {
